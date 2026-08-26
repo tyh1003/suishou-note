@@ -51,7 +51,6 @@
   * 顯示即時字數統計
 * 支援卡片展開與縮起
 
-<img width="4320" height="3584" alt="15885" src="https://github.com/user-attachments/assets/fc6b63b3-8d7d-4a68-b12b-d5b71f566ae8" />
 
 
 ---
