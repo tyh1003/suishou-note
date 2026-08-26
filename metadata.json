@@ -1,0 +1,6 @@
+{
+  "name": "隨手記",
+  "description": "溫柔舒適的隨手記事工具，支援專案發想、多元文章寫作與心情日記卡片記錄。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
