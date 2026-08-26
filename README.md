@@ -21,6 +21,9 @@
 * 卡片支援展開與縮起
 * 縮起後僅保留名稱與簡單資訊
 
+<img width="1080" height="2247" alt="15883" src="https://github.com/user-attachments/assets/67658759-a3bf-4d95-9d65-4d7f20ea4e80" />
+
+
 ---
 
 ### ✍️ 文章
@@ -48,6 +51,9 @@
   * 顯示即時字數統計
 * 支援卡片展開與縮起
 
+<img width="4320" height="3584" alt="15885" src="https://github.com/user-attachments/assets/fc6b63b3-8d7d-4a68-b12b-d5b71f566ae8" />
+
+
 ---
 
 ### 📖 日記
@@ -71,6 +77,9 @@
 
   * 自由記錄當天發生的事情、想法與感受
 * 支援卡片展開與縮起
+
+<img width="1080" height="957" alt="15887" src="https://github.com/user-attachments/assets/ae97e243-218b-4f59-9c5a-e122e8a6333d" />
+
 
 ---
 
