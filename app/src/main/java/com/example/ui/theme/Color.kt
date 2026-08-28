@@ -42,6 +42,12 @@ val DiaryOnContainer = Color(0xFF5D4037)
 val DiarySurface = Color(0xFFFFFFFF)
 val DiaryBorder = Color(0xFFEEDDCC)
 
+val FreePrimary = Color(0xFF6B705C)
+val FreeContainer = Color(0xFFF0EFEB)
+val FreeOnContainer = Color(0xFF333D29)
+val FreeSurface = Color(0xFFFFFFFF)
+val FreeBorder = Color(0xFFDDBEA9)
+
 val GeneralPrimary = Color(0xFFA67C52)
 val GeneralContainer = Color(0xFFFAF3E0)
 val GeneralOnContainer = Color(0xFF5D4037)

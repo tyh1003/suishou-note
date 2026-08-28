@@ -28,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui.components.AddEditCardDialog
 import com.example.ui.components.ArticleCardItem
 import com.example.ui.components.DiaryCardItem
+import com.example.ui.components.FreeCardItem
 import com.example.ui.components.GeneralCardItem
 import com.example.ui.components.ProjectCardItem
 import com.example.ui.components.TopCategoryBar
@@ -50,6 +51,7 @@ fun MainScreen(
             "PROJECT" to notes.count { it.type == "PROJECT" },
             "ARTICLE" to notes.count { it.type == "ARTICLE" },
             "DIARY" to notes.count { it.type == "DIARY" },
+            "FREE" to notes.count { it.type == "FREE" },
             "GENERAL" to notes.count { it.type == "GENERAL" }
         )
     }
@@ -67,11 +69,12 @@ fun MainScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MinimalBg)
+                    .statusBarsPadding()
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 24.dp, end = 20.dp, top = 20.dp, bottom = 8.dp),
+                        .padding(start = 24.dp, end = 20.dp, top = 16.dp, bottom = 8.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -238,6 +241,7 @@ fun MainScreen(
                             NoteCategory.PROJECT -> "新增專案發想"
                             NoteCategory.ARTICLE -> "撰寫文章"
                             NoteCategory.DIARY -> "寫今日日記"
+                            NoteCategory.FREE -> "新增任意記事"
                             NoteCategory.ALL -> "新增字卡"
                         },
                         color = MinimalPrimary,
@@ -344,6 +348,14 @@ fun MainScreen(
                                 onDuplicate = { viewModel.duplicateNote(note) },
                                 onDelete = { viewModel.deleteNote(note.id) }
                             )
+                            "FREE" -> FreeCardItem(
+                                note = note,
+                                onToggleExpand = { viewModel.toggleExpand(note) },
+                                onTogglePin = { viewModel.togglePin(note) },
+                                onEdit = { viewModel.openEditDialog(note) },
+                                onDuplicate = { viewModel.duplicateNote(note) },
+                                onDelete = { viewModel.deleteNote(note.id) }
+                            )
                             else -> GeneralCardItem(
                                 note = note,
                                 onToggleExpand = { viewModel.toggleExpand(note) },
@@ -365,6 +377,7 @@ fun MainScreen(
             NoteCategory.PROJECT -> "PROJECT"
             NoteCategory.ARTICLE -> "ARTICLE"
             NoteCategory.DIARY -> "DIARY"
+            NoteCategory.FREE -> "FREE"
             NoteCategory.ALL -> "PROJECT"
         }
         AddEditCardDialog(

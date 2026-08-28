@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Article
 import androidx.compose.material.icons.rounded.Book
 import androidx.compose.material.icons.rounded.Dashboard
+import androidx.compose.material.icons.rounded.EditNote
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -48,6 +49,16 @@ enum class NoteCategory(
         primaryColor = DiaryPrimary,
         containerColor = DiaryContainer,
         borderColor = DiaryBorder
+    ),
+    FREE(
+        typeKey = "FREE",
+        title = "任意",
+        subtitle = "自由記事與備忘",
+        icon = Icons.Rounded.EditNote,
+        bgTone = WarmSandBase,
+        primaryColor = FreePrimary,
+        containerColor = FreeContainer,
+        borderColor = FreeBorder
     ),
     ALL(
         typeKey = "ALL",

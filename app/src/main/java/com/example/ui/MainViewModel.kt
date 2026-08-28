@@ -30,6 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             NoteCategory.PROJECT -> allNotes.filter { it.type == "PROJECT" }
             NoteCategory.ARTICLE -> allNotes.filter { it.type == "ARTICLE" }
             NoteCategory.DIARY -> allNotes.filter { it.type == "DIARY" }
+            NoteCategory.FREE -> allNotes.filter { it.type == "FREE" }
             NoteCategory.ALL -> allNotes
         }
 
@@ -149,6 +150,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     "DIARY" -> dateText.ifBlank { getTodayDateWithWeekString() }
                     "ARTICLE" -> dateText.ifBlank { getTodayDateString() }
                     "PROJECT" -> "未命名專案"
+                    "FREE" -> "未命名檔名"
                     else -> "隨手筆記"
                 }
             }

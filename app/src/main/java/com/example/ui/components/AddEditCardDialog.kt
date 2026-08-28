@@ -132,6 +132,7 @@ fun AddEditCardDialog(
         "PROJECT" -> NoteCategory.PROJECT
         "ARTICLE" -> NoteCategory.ARTICLE
         "DIARY" -> NoteCategory.DIARY
+        "FREE" -> NoteCategory.FREE
         else -> NoteCategory.ALL
     }
 
@@ -175,6 +176,7 @@ fun AddEditCardDialog(
                                     "PROJECT" -> Icons.Rounded.Code
                                     "ARTICLE" -> Icons.Rounded.Article
                                     "DIARY" -> Icons.Rounded.Favorite
+                                    "FREE" -> Icons.Rounded.EditNote
                                     else -> Icons.Rounded.DashboardCustomize
                                 },
                                 contentDescription = null,
@@ -229,7 +231,8 @@ fun AddEditCardDialog(
                         listOf(
                             Triple("PROJECT", "專案發想", Icons.Rounded.Code),
                             Triple("ARTICLE", "文章 (詩/文/小說)", Icons.Rounded.Article),
-                            Triple("DIARY", "生活日記", Icons.Rounded.Favorite)
+                            Triple("DIARY", "生活日記", Icons.Rounded.Favorite),
+                            Triple("FREE", "任意", Icons.Rounded.EditNote)
                         ).forEach { (typeKey, typeLabel, icon) ->
                             val isSelected = selectedType == typeKey
                             FilterChip(
@@ -241,6 +244,8 @@ fun AddEditCardDialog(
                                     } else if (typeKey == "DIARY") {
                                         dateText = todayDateWithWeek
                                     } else if (typeKey == "ARTICLE") {
+                                        dateText = todayDate
+                                    } else if (typeKey == "FREE") {
                                         dateText = todayDate
                                     }
                                 },
@@ -726,6 +731,104 @@ fun AddEditCardDialog(
                                         unfocusedContainerColor = Color.White.copy(alpha = 0.9f),
                                         focusedBorderColor = DiaryPrimary,
                                         unfocusedBorderColor = DiaryBorder
+                                    )
+                                )
+                            }
+                        }
+
+                        "FREE" -> {
+                            // 4. 任意 (FREE)
+                            // 檔名
+                            OutlinedTextField(
+                                value = title,
+                                onValueChange = { title = it },
+                                label = { Text("檔名") },
+                                placeholder = { Text("例如：會議記錄、臨時備忘、靈感草稿") },
+                                singleLine = true,
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .testTag("free_title_input"),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White.copy(alpha = 0.9f),
+                                    focusedBorderColor = FreePrimary,
+                                    unfocusedBorderColor = FreeBorder
+                                )
+                            )
+
+                            // 日期
+                            OutlinedTextField(
+                                value = dateText,
+                                onValueChange = { dateText = it },
+                                label = { Text("日期") },
+                                placeholder = { Text(todayDate) },
+                                singleLine = true,
+                                shape = RoundedCornerShape(16.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .testTag("free_date_input"),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White.copy(alpha = 0.9f),
+                                    focusedBorderColor = FreePrimary,
+                                    unfocusedBorderColor = FreeBorder
+                                )
+                            )
+
+                            // 詳述記事框 (支援換行自動列點)
+                            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "詳述 (記事內容 • 支援換行自動列點)",
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = FreePrimary,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+
+                                    Button(
+                                        onClick = {
+                                            contentTextFieldValue = insertBulletPoint(contentTextFieldValue)
+                                        },
+                                        shape = RoundedCornerShape(10.dp),
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = FreeContainer,
+                                            contentColor = FreePrimary
+                                        ),
+                                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 2.dp),
+                                        modifier = Modifier.height(28.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.Add,
+                                            contentDescription = null,
+                                            modifier = Modifier.size(13.dp)
+                                        )
+                                        Spacer(modifier = Modifier.width(3.dp))
+                                        Text("插入列點 (•)", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                    }
+                                }
+
+                                OutlinedTextField(
+                                    value = contentTextFieldValue,
+                                    onValueChange = { newValue ->
+                                        contentTextFieldValue = handleBulletContentChange(contentTextFieldValue, newValue)
+                                    },
+                                    placeholder = { Text("記錄任何想法、待辦事項、自由筆記...") },
+                                    minLines = 7,
+                                    maxLines = 16,
+                                    shape = RoundedCornerShape(16.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .testTag("free_content_input"),
+                                    colors = OutlinedTextFieldDefaults.colors(
+                                        focusedContainerColor = Color.White,
+                                        unfocusedContainerColor = Color.White.copy(alpha = 0.9f),
+                                        focusedBorderColor = FreePrimary,
+                                        unfocusedBorderColor = FreeBorder
                                     )
                                 )
                             }
