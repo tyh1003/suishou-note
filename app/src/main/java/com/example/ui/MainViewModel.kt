@@ -47,28 +47,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    // Category counts mapped from all notes in database
+    val categoryCounts: StateFlow<Map<String, Int>> = dao.getAllNotes().map { allNotes ->
+        mapOf(
+            "PROJECT" to allNotes.count { it.type == "PROJECT" },
+            "ARTICLE" to allNotes.count { it.type == "ARTICLE" },
+            "DIARY" to allNotes.count { it.type == "DIARY" },
+            "FREE" to allNotes.count { it.type == "FREE" },
+            "GENERAL" to allNotes.count { it.type == "GENERAL" }
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
+
     // Dialog states
     private val _editingNote = MutableStateFlow<NoteCardEntity?>(null)
     val editingNote: StateFlow<NoteCardEntity?> = _editingNote.asStateFlow()
 
     private val _showAddDialog = MutableStateFlow(false)
     val showAddDialog: StateFlow<Boolean> = _showAddDialog.asStateFlow()
-
-    init {
-        // Clear all previous sample notes from previous seeds so user starts with a clean slate
-        viewModelScope.launch {
-            val sampleTitles = setOf(
-                "個人記帳 App", "AI 創意寫作助手", "智慧盆栽監測系統", "秋日隨想錄", "夜之詩", "週末待採購清單",
-                "隨手記 App 開發設計", "個人生活目標管理看板", "午後的陽光與咖啡香"
-            )
-            val currentNotes = dao.getAllNotes().first()
-            currentNotes.forEach { note ->
-                if (note.title in sampleTitles || note.title.startsWith("2026-") || note.title.startsWith("2025-")) {
-                    dao.deleteNoteById(note.id)
-                }
-            }
-        }
-    }
 
     fun selectCategory(category: NoteCategory) {
         _selectedCategory.value = category

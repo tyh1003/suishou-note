@@ -45,16 +45,7 @@ fun MainScreen(
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val editingNote by viewModel.editingNote.collectAsStateWithLifecycle()
     val showAddDialog by viewModel.showAddDialog.collectAsStateWithLifecycle()
-
-    val categoryCounts = remember(notes) {
-        mapOf(
-            "PROJECT" to notes.count { it.type == "PROJECT" },
-            "ARTICLE" to notes.count { it.type == "ARTICLE" },
-            "DIARY" to notes.count { it.type == "DIARY" },
-            "FREE" to notes.count { it.type == "FREE" },
-            "GENERAL" to notes.count { it.type == "GENERAL" }
-        )
-    }
+    val categoryCounts by viewModel.categoryCounts.collectAsStateWithLifecycle()
 
     var isSearchExpanded by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
